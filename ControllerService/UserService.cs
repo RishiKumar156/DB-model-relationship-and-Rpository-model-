@@ -52,5 +52,11 @@ namespace Patric_God.ControllerService
             }
             return db;
         }
+
+        public  async Task<List<User>> GetUsers()
+        {
+            var getUser = await _context.NewUser.ToListAsync();
+            return getUser;
+        }
     }
 }

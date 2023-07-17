@@ -5,6 +5,7 @@ namespace Patric_God.ControllerService
 {
     public interface IUser
     {
+        Task<List<User>> GetUsers();
         Task<User> GetUser(int Id);
         Task<User> CreateUser(User User);
         Task <User> UpdateUser(User User);

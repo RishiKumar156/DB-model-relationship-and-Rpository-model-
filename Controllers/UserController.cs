@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Patric_God.ControllerService;
 using Patric_God.Data;
 using Patric_God.Models;
+using Patric_God.Models.ModelsDTO;
 
 namespace Patric_God.Controllers
 {
@@ -13,11 +15,22 @@ namespace Patric_God.Controllers
     {
         private readonly DBContext _context;
         private readonly IUser _InterFaceUser;
+        private readonly IMapper _mapper;
 
-        public UserController(DBContext context , IUser InterFaceUser)
+        public UserController(DBContext context , IUser InterFaceUser , IMapper mapper)
         {
             _context = context;
             _InterFaceUser = InterFaceUser;
+            _mapper = mapper;
+        }
+
+        //get everydata http method 
+        [HttpGet]
+        public async  Task<ActionResult> GetData()
+        {
+            var getUser = await _InterFaceUser.GetUsers();
+            var userData = _mapper.Map<List<UserDTO>>(getUser);
+            return Ok(userData);
         }
         [HttpGet("{Id}")]
         public async Task<ActionResult<User>> GetUser(int Id)

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Patric_God.ControllerService;
 using Patric_God.Data;
-
+using Patric_God.Models.AutoMapperProfile;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,6 +13,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DBContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("default")));
 builder.Services.AddScoped<IUser, UserService>();
+builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
